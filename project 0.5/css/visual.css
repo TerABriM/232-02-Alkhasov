@@ -58,37 +58,55 @@ body {
 }
 
 
+:root {
+    /* Переменные для настройки галочки */
+    --checkbox-size: 18px;     /* Размер квадратика */
+    --checkbox-margin: 10px;   /* Отступ от текста */
+    --checkbox-color: #4CAF50; /* Цвет при активации */
+    --checkbox-border: 2px;    /* Толщина рамки */
+}
+
 .checkbox-container {
     display: flex;
     align-items: center;
     margin: 15px 0;
 }
 .checkbox-label {
-    margin-right: 10px;
+    margin-right: var(--checkbox-margin);
+    order: 1; /* Текст слева */
 }
 .custom-checkbox {
     appearance: none;
-    width: 18px;
-    height: 18px;
-    border: 2px solid #ccc;
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    border: var(--checkbox-border) solid #ccc;
     border-radius: 4px;
     outline: none;
     cursor: pointer;
     position: relative;
+    order: 2; /* Галочка справа */
+    
+    /* Плавное изменение цвета */
+    transition: background-color 0.2s, border-color 0.2s;
 }
 .custom-checkbox:checked {
-    background-color: #4CAF50;
-    border-color: #4CAF50;
+    background-color: var(--checkbox-color);
+    border-color: var(--checkbox-color);
 }
 .custom-checkbox:checked::after {
     content: '\2713';
-    font-size: 14px;
+    font-size: calc(var(--checkbox-size) - 4px);
     color: white;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* Варианты расположения */
+.checkbox-left .checkbox-label { order: 2; }
+.checkbox-left .custom-checkbox { order: 1; }
+
 #submitBtn:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
